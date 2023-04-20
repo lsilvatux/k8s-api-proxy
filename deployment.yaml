@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-api-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: k8s-api-proxy
+  template:
+    metadata:
+      labels:
+        run: k8s-api-proxy
+    spec:
+      containers:
+      - image: lsilvatux/k8s-api-proxy
+        imagePullPolicy: Always
+        name: k8s-api-proxy
+        ports:
+        - containerPort: 8118
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limit:
+	    cpu: 100m
+	    memory: 256Mi
